@@ -1,6 +1,6 @@
 {
   "name": "@lalba-anthony/md-cleaner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cleans up Markdown files by removing AI fingerprints.",
   "keywords": [
     "cli",

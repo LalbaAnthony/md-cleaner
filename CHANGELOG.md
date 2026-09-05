@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/LalbaAnthony/md-cleaner/compare/v1.0.0...v1.0.1) (2026-09-05)
+
+
+### Bug Fixes
+
+* new push on NPM ([690badd](https://github.com/LalbaAnthony/md-cleaner/commit/690baddf54794ba3dcb41a14559086d816e68ffd))
+
 # 1.0.0 (2026-09-05)
 
 
