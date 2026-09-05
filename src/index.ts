@@ -57,3 +57,4 @@ export function parseCliArguments(argv: readonly string[]): CliArguments {
 
   return { help, version, path };
 }
+
