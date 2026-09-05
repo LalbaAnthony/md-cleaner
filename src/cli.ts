@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { MdCleanerError, UsageError } from './errors.js';
-import { parseCliArguments } from './index.js';
+import { cleanFile, parseCliArguments } from './index.js';
 import { packageVersion } from './version.js';
 
 const usage = `Usage:
@@ -11,8 +11,7 @@ Options:
   -v, --version   Show the version and exit
 
 Example:
-  md-cleaner "my-file.md"
-`;
+  md-cleaner "my-file.md"`;
 
 const unexpectedFailureExitCode = 1;
 
@@ -33,7 +32,16 @@ async function run(argv: readonly string[]): Promise<void> {
     return;
   }
 
-  // ...
+  const result = await cleanFile(args.path);
+
+  if (result.unexpectedExtension !== null) {
+    writeLine(
+      process.stderr,
+      `md-cleaner: warning: file extension is '${result.unexpectedExtension}' - expected .md or .markdown. Proceeding anyway.`,
+    );
+  }
+
+  writeLine(process.stdout, `Cleaned: ${result.path}`);
 }
 
 try {

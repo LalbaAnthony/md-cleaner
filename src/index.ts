@@ -2,7 +2,14 @@ import { parseArgs } from 'node:util';
 import { UsageError } from './errors.js';
 import type { CliArguments } from './types/cli.js';
 
-export { MdCleanerError, UsageError } from './errors.js';
+export { cleanMarkdown } from './clean.js';
+export { cleanFile, markdownExtensions } from './file.js';
+export {
+  FileAccessError,
+  FileNotFoundError,
+  MdCleanerError,
+  UsageError,
+} from './errors.js';
 export { packageVersion } from './version.js';
 export type * from './types/index.js';
 
@@ -26,24 +33,27 @@ export function parseCliArguments(argv: readonly string[]): CliArguments {
     positionals = parsed.positionals;
   } catch (cause) {
     throw new UsageError(
-      cause instanceof Error
-        ? cause.message
-        : 'invalid arguments',
+      cause instanceof Error ? cause.message : 'invalid arguments',
     );
   }
 
   const help = values.help === true;
   const version = values.version === true;
-  const query = positionals.join(' ').trim();
 
-  if (!help && !version && query.length === 0) {
+  // --help and --version short-circuit in the CLI, so the path is irrelevant
+  if (help || version) {
+    return { help, version, path: '' };
+  }
+
+  if (positionals.length > 1) {
+    throw new UsageError('expected exactly one file argument');
+  }
+
+  const path = positionals[0] ?? '';
+
+  if (path.length === 0) {
     throw new UsageError('missing file argument');
   }
 
-  return {
-    help,
-    version,
-    colorDisabled: values['no-color'] === true,
-    query,
-  };
+  return { help, version, path };
 }

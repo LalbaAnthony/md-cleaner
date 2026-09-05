@@ -141,7 +141,7 @@ level.
 npm view @lalba-anthony/md-cleaner version
 npm view @lalba-anthony/md-cleaner dist-tags
 npx @lalba-anthony/md-cleaner@latest --version
-npx @lalba-anthony/md-cleaner@latest Toulouse
+npx @lalba-anthony/md-cleaner@latest ./README.md
 ```
 
 The provenance attestation is visible on the package page on npmjs.com and via:
