@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/LalbaAnthony/md-cleaner/compare/v1.0.1...v1.0.2) (2026-11-02)
+
+
+### Bug Fixes
+
+* export type modules directly and remove empty barrel ([d407895](https://github.com/LalbaAnthony/md-cleaner/commit/d4078953dea91cacf73ae66bf00a06eea7d84029))
+
 ## [1.0.1](https://github.com/LalbaAnthony/md-cleaner/compare/v1.0.0...v1.0.1) (2026-09-05)
 
 
