@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/LalbaAnthony/md-cleaner/compare/v1.0.2...v1.1.0) (2026-11-02)
+
+
+### Features
+
+* **clean:** treat en-dash and figure dash like em-dash ([0f0202e](https://github.com/LalbaAnthony/md-cleaner/commit/0f0202e72cba8f0b8e1f02dbafacfadbe2f14bbf))
+
 ## [1.0.2](https://github.com/LalbaAnthony/md-cleaner/compare/v1.0.1...v1.0.2) (2026-11-02)
 
 
