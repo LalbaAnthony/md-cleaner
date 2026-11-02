@@ -53,7 +53,7 @@ CI order (`.github/workflows/tests.inc.yml`), which a change must pass: `npm ci`
 
 One-way dependency chain from the shell boundary to the pure function: `cli.ts` -> `index.ts` -> `file.ts` -> `clean.ts`. `clean.ts` imports nothing and does no I/O.
 
-- `cleanMarkdown` normalizes BOM and CRLF/CR to LF, then walks lines with a fence flag. Fenced blocks (```` ``` ```` / `~~~`) pass through byte for byte, except that trailing whitespace is trimmed from the opening fence line. Other lines get, in order: typography replacements, em-dash replacement, emoji strip, then `trimEnd`. A `---` preceded by a blank line is dropped, and runs of blank lines are collapsed. The output always ends with exactly one `\n`.
+- `cleanMarkdown` normalizes BOM and CRLF/CR to LF, then walks lines with a fence flag. Fenced blocks (```` ``` ```` / `~~~`) pass through byte for byte, except that trailing whitespace is trimmed from the opening fence line. Other lines get, in order: typography replacements, spaced-dash replacement (U+2012/U+2013/U+2014), emoji strip, then `trimEnd`. A `---` preceded by a blank line is dropped, and runs of blank lines are collapsed. The output always ends with exactly one `\n`.
 - `cleanFile` always rewrites the file as UTF-8 without BOM, even when the content is unchanged. A non-`.md`/`.markdown` extension is reported via `unexpectedExtension` and is not an error.
 - Errors: `cli.ts` never maps failures to numbers. It reads `exitCode` off `MdCleanerError`: `UsageError` = 2, `FileNotFoundError`/`FileAccessError` = 1, unknown errors = 1. To add a failure mode, add a subclass in `src/errors.ts`.
 - Public API (`src/index.ts`): `cleanMarkdown`, `cleanFile`, `markdownExtensions`, `parseCliArguments`, `packageVersion`, the four error classes.
@@ -99,5 +99,5 @@ npx vitest run -t "is idempotent"
 - `src/version.ts` loads `../package.json` relative to its own location, which resolves correctly from both `src/` (tests) and `dist/` (runtime). Moving the file to another directory depth breaks it.
 - There is no `src/types/index.ts` barrel. Each file under `src/types/` is re-exported individually from `src/index.ts` (`export type * from './types/<name>.js'`). A new type file is not public until you add that line.
 - `tsconfig.json` includes only `src/`, so `npm run typecheck` does not type-check `tests/`. ESLint also disables type-aware rules for `tests/`.
-- In `src/clean.ts`, typography replacements must run before the em-dash and emoji passes. The em-dash heading/table/bold test runs on the already-replaced line.
+- In `src/clean.ts`, typography replacements must run before the dash and emoji passes. The dash heading/table/bold test runs on the already-replaced line.
 - The CLI has no dry-run and no backup. Running it (or `cleanFile`) on a repo file modifies that file.

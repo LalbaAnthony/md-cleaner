@@ -32,6 +32,20 @@ describe('cleanMarkdown', () => {
     expect(cleanMarkdown('**Bold** \u2014 rest')).toBe('**Bold** - rest\n');
   });
 
+  it('treats a spaced en-dash or figure dash like an em-dash', () => {
+    expect(cleanMarkdown('This is fine \u2013 really \u2012 fine')).toBe(
+      'This is fine, really, fine\n',
+    );
+    expect(cleanMarkdown('## Title \u2013 subtitle')).toBe('## Title - subtitle\n');
+    expect(cleanMarkdown('| a \u2012 b | c |')).toBe('| a - b | c |\n');
+  });
+
+  it('leaves unspaced dashes alone', () => {
+    expect(cleanMarkdown('1990\u20132000, 555\u20121234, a\u2014b')).toBe(
+      '1990\u20132000, 555\u20121234, a\u2014b\n',
+    );
+  });
+
   it('strips emojis together with one trailing space', () => {
     expect(cleanMarkdown('\uD83D\uDE80 Ship it \u2705')).toBe('Ship it\n');
     expect(cleanMarkdown('- \u26A0\uFE0F careful')).toBe('- careful\n');

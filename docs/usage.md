@@ -55,9 +55,7 @@ are passed through byte for byte, so only the opening fence line is touched.
 | U+201C / U+201D curly quote     | `"`         |
 | U+00AB / U+00BB guillemet       | `"`, inner space swallowed |
 
-**Em-dash** surrounded by spaces becomes ` - ` on a heading, a table row or a
-bold-led line, and `, ` anywhere else. A comma reads wrong in a title or a
-cell.
+**Dashes**: a U+2012 figure dash, U+2013 en-dash or U+2014 em-dash surrounded by spaces becomes ` - ` on a heading, a table row or a bold-led line, and `, ` anywhere else. A comma reads wrong in a title or a cell. Unspaced dashes (`1990–2000`) are left alone.
 
 **Emojis** are removed together with one following space: astral-plane
 characters plus the BMP symbol and dingbat blocks, the variation selector, the

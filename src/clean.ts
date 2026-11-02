@@ -16,13 +16,16 @@ const fenceOpenPattern = /^\s*(?:```|~~~)/;
 const fenceClosePattern = /^\s*(?:```|~~~)\s*$/;
 
 /**
- * Headings, table rows and bold-led lines. An em-dash reads wrong as a comma
- * in a title or a cell, so those get a hyphen instead.
+ * Headings, table rows and bold-led lines. A dash reads wrong as a comma in a
+ * title or a cell, so those get a hyphen instead.
  */
 const headingOrCellPattern = /^\s*(?:#{1,6}\s|\||\*\*)/;
 
-/** " em-dash " -- surrounded by spaces, which is the AI-style usage. */
-const emDashPattern = / \u2014 /g;
+/**
+ * Figure dash, en-dash or em-dash surrounded by spaces, which is the AI-style
+ * usage. Unspaced dashes (ranges, phone numbers) are left alone.
+ */
+const spacedDashPattern = / [\u2012\u2013\u2014] /g;
 
 /**
  * Astral-plane characters (surrogate pairs) plus the BMP symbol and dingbat
@@ -98,7 +101,7 @@ export function cleanMarkdown(content: string): string {
 
     // Tested after the typography pass, exactly like the shell original
     line = line.replace(
-      emDashPattern,
+      spacedDashPattern,
       headingOrCellPattern.test(line) ? ' - ' : ', ',
     );
 
