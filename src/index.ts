@@ -11,7 +11,8 @@ export {
   UsageError,
 } from './errors.js';
 export { packageVersion } from './version.js';
-export type * from './types/index.js';
+export type * from './types/clean.js';
+export type * from './types/cli.js';
 
 const cliOptions = {
   help: { type: 'boolean', short: 'h', default: false },
